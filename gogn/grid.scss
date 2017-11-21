@@ -1,0 +1,116 @@
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -($gutter / 2);
+  margin-bottom: $gutter;
+  margin-left: -($gutter / 2);
+}
+
+// mixin sem reiknar nákvæmar prósentur útfrá dálkum
+@mixin columns($col: 1) {
+  // margföldum með "1%" til að breyta gildi í prósentu gildi
+  width: ($col / 12 * 100) * 1%;
+}
+
+.col {
+  padding-right: $gutter;
+  padding-left: $gutter;
+
+  &-12 {
+    @include columns(12);
+  }
+
+  &-8 {
+    @include columns(8);
+  }
+
+  &-6 {
+    @include columns(6);
+  }
+
+  &-4 {
+    @include columns(4);
+  }
+
+  &-3 {
+    @include columns(3);
+  }
+
+  &-sm {
+    @media (max-width: 799px) {
+      &-12 {
+        @include columns(12);
+      }
+
+      &-6 {
+        @include columns(6);
+      }
+
+      &-4 {
+        @include columns(4);
+      }
+
+      &-3 {
+        @include columns(3);
+      }
+    }
+  }
+
+  &-xsm {
+    @media (max-width: 499px) {
+      &-12 {
+        @include columns(12);
+      }
+
+      &-6 {
+        @include columns(6);
+      }
+
+      &-3 {
+        @include columns(3);
+      }
+    }
+  }
+}
+
+.offset {
+  &-1 {
+    margin-left: (1 / 12 * 100) * 1%;
+  }
+
+  &-2 {
+    margin-left: (2 / 12 * 100) * 1%;
+  }
+
+  &-sm {
+    @media (max-width: 799px) {
+      &-0 {
+        margin-left: 0;
+      }
+
+      &-1 {
+        margin-left: (1 / 12 * 100) * 1%;
+      }
+
+      &-2 {
+        margin-left: (2 / 12 * 100) * 1%;
+      }
+
+      &-3 {
+        margin-left: (3 / 12 * 100) * 1%;
+      }
+    }
+  }
+
+  &-xsm {
+    @media (max-width: 499px) {
+      &-0 {
+        margin-left: 0;
+      }
+
+      &-3 {
+        margin-left: (3 / 12 * 100) * 1%;
+      }
+    }
+  }
+}

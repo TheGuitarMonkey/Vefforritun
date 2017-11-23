@@ -1,0 +1,15 @@
+body {
+  background-color: #3f3f3f; }
+
+.mainheader, .videoh2 {
+  color: #fff; }
+
+.container {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: flex-end; }
+
+.vidimg {
+  height: auto;
+  width: 300px; }

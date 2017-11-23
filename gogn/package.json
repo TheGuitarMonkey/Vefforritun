@@ -4,7 +4,7 @@
   "description": "Seinna hópverkefnið í vefforritun",
   "main": "index.js",
   "scripts": {
-    "browser-sync": "browser-sync start --server --files index.html styles.css video.html",
+    "browser-sync": "browser-sync start --server --files index.html styles.css video.html scripts.js vscripts.js",
     "sass": "node-sass styles.scss styles.css -w",
     "dev": "npm-run-all --parallel sass browser-sync",
     "lint": "stylelint *.scss scss/*.scss --syntax scss"

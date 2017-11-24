@@ -97,7 +97,9 @@ var program = function () {
 
     r.send();
   }
-
+  /*tekur inn json object sem hefur verið parse-að, býr til div elements fyrir
+    hvert category, setur inn titil fyrir hvert category og birtir allar upplýsingar
+    fyrir hvert myndband.*/
   function addVideos(data) {
     var videoData = data;
     var divcount = 1;
@@ -123,10 +125,6 @@ var program = function () {
 
       container.appendChild(div);
     }
-
-    var newVideosArray = videoData.categories[0].videos;
-    var studyVideosArray = videoData.categories[1].videos;
-    var funVideosArray = videoData.categories[2].videos;
   }
 
   function init() {

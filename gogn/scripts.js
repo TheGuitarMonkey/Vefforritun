@@ -1,11 +1,13 @@
 
 document.addEventListener('DOMContentLoaded', function (){
+
   program.init();
 });
 
 
 var program = (function(){
-  var newVideos, studyVideos, funVideos;
+  let container;
+  let videoData;
 
   /*Tekur inn millisekúndur og breytir þeim í
     stærstu mögulega einingu(t.d. mínútur, klukkustundur)
@@ -18,7 +20,7 @@ var program = (function(){
     const week = 7*day;
     const month = 30*day;
     const year = 365*day;
-    var time;
+    let time;
     if(milliseconds < min){
       time = Math.floor(milliseconds/sec);
       if(time != 1)
@@ -102,36 +104,60 @@ var program = (function(){
     } else if (typeof child === 'object') {
       el.appendChild(child)
     }
-
     return el;
   }
+
   function loadJSON() {
-
     const r = new XMLHttpRequest();
-r.open('GET', 'videos.json', true);
-r.onload = function() {
-  var data = JSON.parse(r.response);
-  if (r.status >=200 && r.status < 400) {
-    console.log(data.videos[0]);
-  } else {
-    // meðhöndla villu
-  }
-};
+    r.open('GET', 'videos.json', true);
+    r.onload = function() {
+      var data = JSON.parse(r.response);
+      if (r.status >=200 && r.status < 400) {
+          addVideos(data);
+      } else {
+        //villuskilaboð
+      }
+    };
 
-r.send();
+    r.send();
    }
 
-  function addVideo(container){
-    loadJSON();
+  function addVideos(data){
+    let videoData = data;
+    let divcount = 1;
+    for(let i = 0; i < videoData.categories.length; i++){
+      let divTitle = element('h2', videoData.categories[i].title);
+      let div = element('div', divTitle);
+      div.className = 'category' + divcount;
+      divcount++;
+      for(let j = 0; j < videoData.categories[i].videos.length; j++){
+        let videoID = videoData.categories[i].videos[j];
+        let video = videoData.videos[videoID-1];
+        let videoPoster = element('img');
+        videoPoster.src = video.poster;
+        videoPoster.className = 'vidimg';
+        let videoTitle = element('p', video.title);
+        videoTitle.className = 'vidtitle';
+        let videoCreated = element('p', timeSinceCreated(video.created));
+        videoCreated.className = 'vidcreated';
+        div.appendChild(videoPoster);
+        div.appendChild(videoTitle);
+        div.appendChild(videoCreated);
+      }
+
+
+      container.appendChild(div);
+    }
+
+    let newVideosArray = videoData.categories[0].videos;
+    let studyVideosArray = videoData.categories[1].videos;
+    let funVideosArray = videoData.categories[2].videos;
+
   }
 
-
-
   function init(){
-    newVideos = document.querySelector('.container_newvideos');
-    studyVideos = document.querySelector('.container_studyvideos');
-    funVideos = document.querySelector('.container_funvideos');
-    addVideo("yo");
+    container = document.querySelector('.container');
+    loadJSON();
   }
 
 

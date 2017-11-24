@@ -1,24 +1,109 @@
-body {
-  background-color: #3f3f3f; }
+@charset "UTF-8";
+/* setjum box-sizing: border-box; á allt */
+html {
+  /* stylelint-disable-line */
+  box-sizing: border-box; }
+
+*, *:before, *:after {
+  /* stylelint-disable-line */
+  box-sizing: inherit;
+  /* fjarlægjum margin og padding */
+  padding: 0;
+  margin: 0; }
+
+html {
+  /* stylelint-disable-line */
+  margin-right: 0;
+  margin-left: 0;
+  font-family: "Open Sans";
+  font-size: 16px;
+  line-height: 1.5; }
+  @media (min-width: 1200px) {
+    html {
+      padding: 0;
+      margin: 0; } }
+
+img {
+  /* stylelint-disable-line */
+  max-width: 100%; }
+
+main {
+  /* stylelint-disable-line */
+  max-width: 1200px;
+  padding: 0 auto;
+  margin: 0 auto;
+  overflow-x: hidden;
+  font-family: "Open Sans"; }
 
 .mainheader, .videoh2 {
   color: #fff; }
 
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -10px;
+  margin-bottom: 20px;
+  margin-left: -10px; }
+
+.col {
+  padding-right: 20px;
+  padding-left: 20px; }
+  .col-12 {
+    width: 100%; }
+  .col-8 {
+    width: 66.66667%; }
+  .col-6 {
+    width: 50%; }
+  .col-4 {
+    width: 33.33333%; }
+  .col-3 {
+    width: 25%; }
+  @media (max-width: 799px) {
+    .col-sm-12 {
+      width: 100%; }
+    .col-sm-6 {
+      width: 50%; }
+    .col-sm-4 {
+      width: 33.33333%; }
+    .col-sm-3 {
+      width: 25%; } }
+  @media (max-width: 499px) {
+    .col-xsm-12 {
+      width: 100%; }
+    .col-xsm-6 {
+      width: 50%; }
+    .col-xsm-3 {
+      width: 25%; } }
+
+.offset-1 {
+  margin-left: 8.33333%; }
+
+.offset-2 {
+  margin-left: 16.66667%; }
+
+@media (max-width: 799px) {
+  .offset-sm-0 {
+    margin-left: 0; }
+  .offset-sm-1 {
+    margin-left: 8.33333%; }
+  .offset-sm-2 {
+    margin-left: 16.66667%; }
+  .offset-sm-3 {
+    margin-left: 25%; } }
+
+@media (max-width: 499px) {
+  .offset-xsm-0 {
+    margin-left: 0; }
+  .offset-xsm-3 {
+    margin-left: 25%; } }
+
+body {
+  background-color: #3f3f3f; }
+
 .container {
   display: flex;
-  width: 100%;
-  flex-direction: column;
-  flex-wrap: wrap; }
-  .container__newvideos {
-    margin: auto;
-    /* Magic! */ }
-  .container__studyvideos {
-    margin: auto;
-    /* Magic! */ }
-  .container__funvideos {
-    margin: auto;
-    /* Magic! */ }
+  flex-direction: column; }
 
 .vidimg {
   height: auto;
-  width: 300px; }
+  width: 250px; }

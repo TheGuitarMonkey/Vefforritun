@@ -2,3 +2,5 @@
 gogn/node_modules/
 .DS_Store
 gogn/.DS_Store
+gogn/script-compiled.js
+gogn/script-compiled.js.map

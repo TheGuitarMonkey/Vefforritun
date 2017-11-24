@@ -7,7 +7,7 @@
     "eslint": "eslint *.js",
     "stylelint": "stylelint *.scss scss/*.scss --syntax scss",
     "lint": "npm-run-all --parallel eslint stylelint",
-    "babel": "babel script.js --watch --out-file script-compiled.js --source-maps",
+    "babel": "babel scripts.js --watch --out-file script-compiled.js --source-maps",
     "browser-sync": "browser-sync start --server --files index.html styles.css video.html scripts.js vscripts.js",
     "sass": "node-sass --source-map-embed --watch styles.scss styles.css",
     "dev": "npm-run-all --parallel sass babel browser-sync"
@@ -26,8 +26,5 @@
     "npm-run-all": "4.1.1",
     "stylelint": "8.1.1",
     "stylelint-config-primer": "2.0.1"
-  },
-  "dependencies": {
-    "node-sass": "^4.5.3"
   }
 }

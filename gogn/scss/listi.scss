@@ -1,29 +1,32 @@
 body {
   background-color: #3f3f3f;
+  max-width: 1000px;
 }
 
 .container {
+  max-width: 1000px;
   display: flex;
   flex-direction: column;
-
-
-  &__newvideos {
-    
-
-  }
-
-  &__studyvideos {
-
-
-  }
-
-  &__funvideos {
-
-
-  }
+  flex-wrap: wrap;
+  align-items: center;
 }
 
-.vidimg {
-  height: auto;
-  width: 250px;
+  .container__vidlist {
+    padding: 15px;
+    width: auto;
+
+
+  }
+
+  .container__videoh2 {
+
+  }
+  .container__mainheader {
+
+  }
+
+  .vidimg {
+    width: 250px;
+    height: auto;
+
 }

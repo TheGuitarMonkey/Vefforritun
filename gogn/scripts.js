@@ -138,15 +138,18 @@ var program = (function(){
         let videoPoster = element('img');
         videoPoster.src = video.poster;
         videoPoster.className = 'vidimg';
+        div.appendChild(videoPoster);
+      }
+      for(let j = 0; j < videoData.categories[i].videos.length; j++){
+        let videoID = videoData.categories[i].videos[j];
+        let video = videoData.videos[videoID-1];
         let videoTitle = element('p', video.title);
         videoTitle.className = 'vidtitle';
         let videoCreated = element('p', timeSinceCreated(video.created));
         videoCreated.className = 'vidcreated';
-        div.appendChild(videoPoster);
         div.appendChild(videoTitle);
         div.appendChild(videoCreated);
       }
-
 
       container.appendChild(div);
     }

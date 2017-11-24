@@ -1,0 +1,29 @@
+body {
+  background-color: #3f3f3f;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+
+
+  &__newvideos {
+    
+
+  }
+
+  &__studyvideos {
+
+
+  }
+
+  &__funvideos {
+
+
+  }
+}
+
+.vidimg {
+  height: auto;
+  width: 250px;
+}

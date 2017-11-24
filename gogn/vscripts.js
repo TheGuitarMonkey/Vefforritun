@@ -1,85 +1,63 @@
-//Fyrir video.html
-document.addEventListener('DOMContentLoaded', function (){
-  var video_div = document.querySelector(".video");
-  videoplayer.init(video_div);
-});
-
-
-var videoplayer = (function(){
-  var div; // Aðal divvið
-  var video; // video elementið
-  var controls; // controls divvið
+/**
+ * Fyrsta tilraun til vídjóspilara
+ */
+const videoplayer = (function videoplayer() {
+  let div; // Aðal divvið
+  let video; // video elementið
+  let controls; // controls divvið
 
   // Breytur fyrir takkana sem breytast, (play, pause, mute, unmute)
-  var play_img;
-  var pause_img;
-  var mute_img;
-  var unmute_img;
+  let playImg;
+  let pauseImg;
+  let muteImg;
+  let unmuteImg;
 
   // Breytur fyrir takkana
-  var back;
-  var playpause;
-  var mute;
-  var fullscreen;
-  var next;
+  let back;
+  let playpause;
+  let mute;
+  let fullscreen;
+  let next;
 
   // Breyta fyrir videos.json
-  var data;
-  var videoID;
+  let data;
+  let videoID;
 
   /**
-   * load video
-   * Finnur út hvaða vídjó skal ná í
+   * Býr til img element, tekur inn src.
    */
-  function load() {
-    var r = new XMLHttpRequest();
-    showLoading();
-
-    r.open('GET', 'videos.json', true);
-    r.onload = function() {
-      data = JSON.parse(r.response);
-      if (r.status >= 200 && r.status < 400) {
-        showData();
-      } else {
-        // Hér er showError í sýnilausn
-        console.log('villa!', r);
-      }
-    };
-
-    // Fall sem keyrir ef villa kemur upp
-    r.onerror = function() {
-      // Hér er showError í sýnilausn
-      console.log('villa í tengingu');
-    };
-    r.send();
+  function imgElement(src) {
+    const el = document.createElement('img');
+    el.setAttribute('src', src);
+    return el;
   }
 
-  function showLoading() {
-    empty(div);
-    div.appendChild(document.createTextNode("Hahaha loading motherfucker!"));
+  /**
+   * Býr til video element, tekur inn src, poster
+   */
+  function videoElement(src, poster) {
+    const el = document.createElement('video');
+    el.setAttribute('src', src);
+    el.setAttribute('poster', poster);
+    el.setAttribute('class', 'video__vid--overlay');
+    return el;
   }
-  
-  function showData() {
-    empty(div);
 
-    //console.log(data)
-    var vid = findVideoByID(data.videos, videoID);
-    //console.log(data.videos[0]);
-    console.log("hér að neðan er vid");
-    console.log(vid);
+  /**
+   * Býr til element með klasa. Tekur inn týpu og klasa.
+   */
+  function element(type, klasi) {
+    const el = document.createElement(type);
+    el.setAttribute('class', klasi);
+    return el;
+  }
 
-    // Ef vídjó finnst, sýndu það
-    if(vid) {
-      console.log(vid["video"])
-      video = videoElement(vid["video"], vid["poster"]);
-      video.addEventListener('click', clickPlaypause);
-      controls = makeControls();
-
-      // Bæta vídjói og controls í video div
-      div.appendChild(video);
-      div.appendChild(controls);
-    } else {
-      console.log("else...");
+  /**
+   * Eyðir börnum elements.
+   */
+  function empty(el) {
+    while (el.firstChild) {
+      el.removeChild(el.firstChild);
     }
   }
 
@@ -87,22 +65,21 @@ var videoplayer = (function(){
    *
    */
   function videoOverlay(bool) {
-    var className = video.getAttribute("class");
-    if(bool)
-      video.className = "video__vid--overlay";
-    else
-      video.className = "video__vid";
+    if (bool) {
+      video.className = 'video__vid--overlay';
+    } else {
+      video.className = 'video__vid';
+    }
   }
+
 
   /**
    * Fær inn fylki og id, skilar því vídjói sem hefur það id. Ef ekkert finnst,
    * þá null.
    */
   function findVideoByID(arr, id) {
-    console.log("findVidByID hefst");
-    for(var i=0; i<arr.length; i++){
-      console.log(arr[i]["id"]);
-      if (arr[i]["id"] == id) {
+    for (let i = 0; i < arr.length; i += 1) {
+      if (arr[i].id === id) {
         return arr[i];
       }
     }
@@ -114,80 +91,91 @@ var videoplayer = (function(){
    * www.example.com/?id=4 og að ekki séu fleiri breytur en id í url
    */
   function getID() {
-    return parseInt(window.location.search.substr(4));
+    return parseInt(window.location.search.substr(4), 10);
   }
 
-  /**
-   * Býr til img element, tekur inn src.
-   */
-  function imgElement(src) {
-    var el = document.createElement('img');
-    el.setAttribute('src',src);
-    return el;
-  }
-
-  /**
-   * Býr til video element, tekur inn src, poster
-   */
-  function videoElement(src, poster) {
-    var el = document.createElement('video');
-    el.setAttribute('src',src);
-    el.setAttribute('poster',poster);
-    el.setAttribute('class','video__vid--overlay');
-    return el;
-  }
-
-  /**
-   * Býr til element með klasa. Tekur inn týpu og klasa.
-   */
-  function element(type, klasi) {
-    var el = document.createElement(type);
-    el.setAttribute('class',klasi);
-    return el;
-  }
-
-  /**
-   * Eyðir börnum elements.
-   */
-  function empty(element) {
-    while(element.firstChild){
-      element.removeChild(element.firstChild);
+  // Föll þegar ýtt er á takka.
+  //
+  function clickPlaypause() {
+    if (video.paused) {
+      video.play();
+      videoOverlay(false);
+      playpause.removeChild(playpause.firstChild);
+      playpause.appendChild(pauseImg);
+    } else {
+      video.pause();
+      videoOverlay(true);
+      playpause.removeChild(playpause.firstChild);
+      playpause.appendChild(playImg);
     }
   }
+
+  function clickBack() {
+    video.currentTime -= 3;
+  }
+
+  function clickNext() {
+    video.currentTime += 3;
+  }
+
+  function clickMute() {
+    if (!video.muted) {
+      video.muted = true;
+      mute.removeChild(mute.firstChild);
+      mute.appendChild(unmuteImg);
+    } else {
+      video.muted = false;
+      mute.removeChild(mute.firstChild);
+      mute.appendChild(muteImg);
+    }
+  }
+
+  function clickFullscreen() {
+    if (video.requestFullscreen) {
+      video.requestFullscreen();
+    } else if (video.webkitRequestFullscreen) {
+      video.webkitRequestFullscreen();
+    } else if (video.mozRequestFullScreen) {
+      video.mozRequestFullScreen();
+    } else if (video.msRequestFullscreen) {
+      video.msRequestFullscreen();
+    }
+  }
+  // ---------- Hér lýkur takkaföllum ------------
 
   /**
    * Returns a div filled with video controls
    */
   function makeControls() {
-    var el = element('div','video__controls');
-    var img;
+    const el = element('div', 'video__controls');
+    let img;
 
     // Takki 1
-    back = element('button','video__controls--button');
+    back = element('button', 'video__controls--button');
     img = imgElement('img/back.svg');
     back.appendChild(img);
     el.appendChild(back);
 
     // Takki 2
-    playpause = element('button','video__controls--button');
+    playpause = element('button', 'video__controls--button');
     img = imgElement('img/play.svg');
-    playpause .appendChild(img);
+    playpause.appendChild(img);
     el.appendChild(playpause);
 
     // Takki 3
-    mute = element('button','video__controls--button');
+    mute = element('button', 'video__controls--button');
     img = imgElement('img/mute.svg');
     mute.appendChild(img);
     el.appendChild(mute);
 
     // Takki 4
-    fullscreen = element('button','video__controls--button');
+    fullscreen = element('button', 'video__controls--button');
     img = imgElement('img/fullscreen.svg');
     fullscreen.appendChild(img);
     el.appendChild(fullscreen);
 
     // Takki 5
-    next = element('button','video__controls--button');
+    next = element('button', 'video__controls--button');
     img = imgElement('img/next.svg');
     next.appendChild(img);
     el.appendChild(next);
@@ -202,75 +190,89 @@ var videoplayer = (function(){
     return el;
   }
 
-  // Föll þegar ýtt er á takka.
-  //
-  function clickPlaypause() {
-    if(video.paused) {
-      video.play();
-      videoOverlay(false);
-      playpause.removeChild(playpause.firstChild);
-      playpause.appendChild(pause_img);
+  function showLoading() {
+    empty(div);
+    div.appendChild(document.createTextNode('Hahaha loading motherfucker!'));
+  }
+
+  function showError() {
+    empty(div);
+    div.appendChild(document.createTextNode('Æjæjæj... vídjóið fannst ekki... mikið er það leitt.'));
+  }
+
+  function showData() {
+    empty(div);
+
+    const vid = findVideoByID(data.videos, videoID);
+
+    // Ef vídjó finnst, sýndu það
+    if (vid) {
+      const titill = element('h1', 'video__title');
+      titill.appendChild(document.createTextNode(vid.title));
+      video = videoElement(vid.video, vid.poster);
+      video.addEventListener('click', clickPlaypause);
+      controls = makeControls();
+
+      // Bæta vídjói og controls í video div
+      div.appendChild(titill);
+      div.appendChild(video);
+      div.appendChild(controls);
     } else {
-      video.pause();
-      videoOverlay(true);
-      playpause.removeChild(playpause.firstChild);
-      playpause.appendChild(play_img);
+      console.log('else...');
+      showError();
     }
   }
 
-  function clickBack() {
-    video.currentTime = video.currentTime - 3;
+  /**
+   * load video
+   * Finnur út hvaða vídjó skal ná í
+   */
+  function load() {
+    const r = new XMLHttpRequest();
+    showLoading();
+
+    r.open('GET', 'videos.json', true);
+    r.onload = function onload() {
+      data = JSON.parse(r.response);
+      if (r.status >= 200 && r.status < 400) {
+        showData();
+      } else {
+        // Hér er showError í sýnilausn
+        console.log('villa!', r);
+        showError();
+      }
+    };
+
+    // Fall sem keyrir ef villa kemur upp
+    r.onerror = function onerror() {
+      // Hér er showError í sýnilausn
+      console.log('villa í tengingu');
+    };
+    r.send();
   }
 
-  function clickNext() {
-    video.currentTime = video.currentTime + 3;
-  }
-
-  function clickMute() {
-    if(!video.muted) {
-      video.muted = true;
-      mute.removeChild(mute.firstChild);
-      mute.appendChild(unmute_img);
-    } else {
-      video.muted = false;
-      mute.removeChild(mute.firstChild);
-      mute.appendChild(mute_img);
-    }
-  }
-
-  function clickFullscreen() {
-    if(video.requestFullscreen){
-        video.requestFullscreen();
-    } else if (video.webkitRequestFullscreen){
-        video.webkitRequestFullscreen();
-    } else if (video.mozRequestFullScreen){
-        video.mozRequestFullScreen();
-    } else if (video.msRequestFullscreen){
-        video.msRequestFullscreen();
-    }   
-  }
-
-  // ---------- Hér lýkur takkaföllum ------------
-  
-  function init(video_div) {
-    console.log("Hæ! Kveðja frá videoplayer.init()");
-
+  function init(videoDiv) {
     // látum div vera vídjóið
-    div = video_div;
+    div = videoDiv;
     videoID = getID();
 
     // Myndir sem breytast: Play, pause, mute, unmute
-    play_img = imgElement('img/play.svg');
-    pause_img = imgElement('img/pause.svg');
-    mute_img = imgElement('img/mute.svg');
-    unmute_img = imgElement('img/unmute.svg');
-    console.log(play_img);
+    playImg = imgElement('img/play.svg');
+    pauseImg = imgElement('img/pause.svg');
+    muteImg = imgElement('img/mute.svg');
+    unmuteImg = imgElement('img/unmute.svg');
 
     load();
   }
 
-return {
-  init: init
-}
+  return {
+    init,
+  };
+}());
 
-})();
+// Fyrir video.html
+document.addEventListener('DOMContentLoaded', () => {
+  // Fyrsta tilraun, með fullt af var and stuff
+  const videoDiv = document.querySelector('.video');
+  videoplayer.init(videoDiv);
+});

@@ -1,29 +1,6 @@
-body {
-  background-color: #3f3f3f;
-}
+@charset "UTF-8";
 
-.mainheader, .videoh2 {
-  color: #fff;
-}
 
-.container {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  justify-content: flex-end;
-
-  &__newvideos {
-
-  }
-  &__studyvideos {
-
-  }
-  &__funvideos {
-
-  }
-}
-
-.vidimg {
-  height: auto;
-  width: 300px;
-}
+@import "scss/header.scss";
+@import "scss/grid.scss";
+@import "scss/listi.scss";

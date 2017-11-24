@@ -1,0 +1,31 @@
+body {
+  background-color: #3f3f3f;
+}
+
+.container {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  &__newvideos {
+
+    margin: auto;  /* Magic! */
+  }
+
+  &__studyvideos {
+
+    margin: auto;  /* Magic! */
+  }
+
+  &__funvideos {
+
+    margin: auto;  /* Magic! */
+  }
+}
+
+.vidimg {
+  height: auto;
+  width: 500px;
+}

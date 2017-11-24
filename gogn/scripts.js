@@ -5,15 +5,19 @@ document.addEventListener('DOMContentLoaded', function (){
 
 
 var program = (function(){
+  var newVideos, studyVideos, funVideos;
 
+  /*Tekur inn millisekúndur og breytir þeim í
+    stærstu mögulega einingu(t.d. mínútur, klukkustundur)
+    og skilar streng sem lýsir því*/
   function millisecondsToString(milliseconds){
-    var sec = 1000;
-    var min = 60*sec;
-    var hour = 60*min;
-    var day = 24*hour;
-    var week = 7*day;
-    var month = 30.4375*day;
-    var year = 365.25*day;
+    const sec = 1000;
+    const min = 60*sec;
+    const hour = 60*min;
+    const day = 24*hour;
+    const week = 7*day;
+    const month = 30*day;
+    const year = 365*day;
     var time;
     if(milliseconds < min){
       time = Math.floor(milliseconds/sec);
@@ -83,15 +87,51 @@ var program = (function(){
     og skilar streng sem segir hvað er langt síðan
     myndbandið var sett inn*/
   function timeSinceCreated(created){
-    var oldDate = new Date(created);
-    var newDate = Date.now();
-    var difference = newDate - oldDate;
+    const oldDate = new Date(created);
+    const newDate = Date.now();
+    const difference = newDate - oldDate;
     return millisecondsToString(difference);
   }
 
+
+  function element(name, child) {
+    const el = document.createElement(name);
+
+    if (typeof child === 'string') {
+      el.appendChild(document.createTextNode(child));
+    } else if (typeof child === 'object') {
+      el.appendChild(child)
+    }
+
+    return el;
+  }
+  function loadJSON() {
+
+    const r = new XMLHttpRequest();
+r.open('GET', 'videos.json', true);
+r.onload = function() {
+  var data = JSON.parse(r.response);
+  if (r.status >=200 && r.status < 400) {
+    console.log(data.videos[0]);
+  } else {
+    // meðhöndla villu
+  }
+};
+
+r.send();
+   }
+
+  function addVideo(container){
+    loadJSON();
+  }
+
+
+
   function init(){
-    console.log(timeSinceCreated(1507804047011));
-    console.log(timeSinceCreated(1505904047011));
+    newVideos = document.querySelector('.container_newvideos');
+    studyVideos = document.querySelector('.container_studyvideos');
+    funVideos = document.querySelector('.container_funvideos');
+    addVideo("yo");
   }
 
 

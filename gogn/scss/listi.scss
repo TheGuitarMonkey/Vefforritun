@@ -12,18 +12,33 @@ body {
 }
 
 
-.vidimg {
-  width: 100%;
-  height: auto;
-}
-
-.imagediv{
+.imagediv {
   width: 345px;
   display: inline-block;
   padding-right: 10px;
 }
 
-.vidtitle{
+.vidimg {
+  width: 100%;
+  height: auto;
+}
+
+.imagecontainer {
+  position: relative;
+}
+
+.thumbnail {
+    padding-left: 5px;
+    padding-right: 5px;
+    position: absolute;
+    bottom: 16px;
+    right: 8px;
+    font-size: 18px;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.vidtitle {
   font-size : 18px;
   font-weight: bold;
   color: #fff;
@@ -32,26 +47,17 @@ body {
   white-space: nowrap;
 }
 
-.vidcreated{
+.vidcreated {
   color: #fff;
 }
+
 .bordercontainerdiv {
   display: flex;
   justify-content: center;
   margin: 30px;
 
   .borderdiv {
-    border-bottom: 2px solid #939393;
+    border-bottom: 2px solid #eee;
     width: 80%;
   }
 }
-  .border-container {
-    display: flex;
-    justify-content: center;
-    margin: 30px;
-
-    &__bottom {
-      border-bottom: 2px solid #939393;
-      width: 80%;
-    }
-  }

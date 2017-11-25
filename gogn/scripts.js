@@ -95,6 +95,16 @@ var program = (function(){
     return millisecondsToString(difference);
   }
 
+  function secondToMinutesAndSeconds(totalSeconds){
+    const min = 60;
+    let minutes, seconds;
+    minutes = Math.floor(totalSeconds/min);
+    seconds = totalSeconds % min;
+    if(seconds < 10)
+      seconds = "0" + seconds;
+    return minutes + ":" + seconds;
+  }
+
 
   function element(name, child) {
     const el = document.createElement(name);
@@ -162,7 +172,17 @@ var program = (function(){
         let videoPoster = addPoster(video);
         let videoTitle = addTitle(video);
         let videoCreated = addCreated(video);
-        innerDiv.appendChild(videoPoster);
+        let linkToVideo = element('a');
+        linkToVideo.href = "video.html?id=" + video.id;
+        let imageContainer = element('div');
+        imageContainer.className = 'imagecontainer';
+        let thumbnail = element('div', '' +
+        secondToMinutesAndSeconds(video.duration));
+        thumbnail.className = 'thumbnail';
+        linkToVideo.appendChild(videoPoster);
+        imageContainer.appendChild(linkToVideo);
+        imageContainer.appendChild(thumbnail);
+        innerDiv.appendChild(imageContainer);
         innerDiv.appendChild(videoTitle);
         innerDiv.appendChild(videoCreated);
         div.appendChild(innerDiv);

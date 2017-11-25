@@ -113,7 +113,7 @@ var program = (function(){
     r.onload = function() {
       var data = JSON.parse(r.response);
       if (r.status >=200 && r.status < 400) {
-          addVideos(data);
+          addVideoList(data);
       } else {
         //villuskilaboð
       }
@@ -121,37 +121,61 @@ var program = (function(){
 
     r.send();
    }
+
+   function addPoster(video){
+     let videoPoster = element('img');
+     videoPoster.src = video.poster;
+     videoPoster.className = 'vidimg';
+     return videoPoster;
+   }
+   function addTitle(video){
+     let videoTitle = element('p', video.title);
+     videoTitle.className = 'vidtitle';
+     return videoTitle;
+   }
+   function addCreated(video){
+     let videoCreated = element('p', timeSinceCreated(video.created));
+     videoCreated.className = 'vidcreated';
+     return videoCreated;
+   }
+
+
   /*tekur inn json object sem hefur verið parse-að, býr til div elements fyrir
     hvert category, setur inn titil fyrir hvert category og birtir allar upplýsingar
     fyrir hvert myndband.*/
-  function addVideos(data){
-    let videoData = data;
-    let divcount = 1;
+  function addVideoList(data){
+    let videoData = data; //json objectið
+
+    /*Býr til div fyrir hvert category og inni í því divi
+      er búið til div utan um hverja mynd og texta tilheyrandi
+      þeirri mynd*/
     for(let i = 0; i < videoData.categories.length; i++){
       let divTitle = element('h2', videoData.categories[i].title);
+      divTitle.className = 'categorytitle';
       let div = element('div', divTitle);
-      div.className = 'category' + divcount;
-      divcount++;
+      div.className = 'category';
       for(let j = 0; j < videoData.categories[i].videos.length; j++){
+        let innerDiv = element('div');
+        innerDiv.className = 'imagediv';
         let videoID = videoData.categories[i].videos[j];
         let video = videoData.videos[videoID-1];
-        let videoPoster = element('img');
-        videoPoster.src = video.poster;
-        videoPoster.className = 'vidimg';
-        div.appendChild(videoPoster);
+        let videoPoster = addPoster(video);
+        let videoTitle = addTitle(video);
+        let videoCreated = addCreated(video);
+        innerDiv.appendChild(videoPoster);
+        innerDiv.appendChild(videoTitle);
+        innerDiv.appendChild(videoCreated);
+        div.appendChild(innerDiv);
       }
-      for(let j = 0; j < videoData.categories[i].videos.length; j++){
-        let videoID = videoData.categories[i].videos[j];
-        let video = videoData.videos[videoID-1];
-        let videoTitle = element('p', video.title);
-        videoTitle.className = 'vidtitle';
-        let videoCreated = element('p', timeSinceCreated(video.created));
-        videoCreated.className = 'vidcreated';
-        div.appendChild(videoTitle);
-        div.appendChild(videoCreated);
-      }
-
       container.appendChild(div);
+
+      //Setur border á milli categories
+      let borderContainerDiv = element('div');
+      borderContainerDiv.className = 'bordercontainerdiv';
+      let borderDiv = element('div');
+      borderDiv.className = 'borderdiv';
+      borderContainerDiv.appendChild(borderDiv);
+      container.appendChild(borderContainerDiv);
     }
 
   }

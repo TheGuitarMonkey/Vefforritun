@@ -5,18 +5,46 @@ body {
 }
 
 .container {
-  max-width: 1000px;
+  max-width: 1200px;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
 }
 
+
 .vidimg {
-  width: 250px;
+  width: 100%;
   height: auto;
-  padding: 2px;
 }
 
+.imagediv{
+  width: 345px;
+  display: inline-block;
+  padding-right: 10px;
+}
+
+.vidtitle{
+  font-size : 18px;
+  font-weight: bold;
+  color: #fff;
+  overflow: hidden;
+  text-overflow: clip;
+  white-space: nowrap;
+}
+
+.vidcreated{
+  color: #fff;
+}
+.bordercontainerdiv {
+  display: flex;
+  justify-content: center;
+  margin: 30px;
+
+  .borderdiv {
+    border-bottom: 2px solid #939393;
+    width: 80%;
+  }
+}
   .border-container {
     display: flex;
     justify-content: center;

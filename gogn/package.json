@@ -2,13 +2,13 @@
   "name": "stort_verkefni_2",
   "version": "1.0.0",
   "description": "Seinna hópverkefnið í vefforritun",
-  "main": "scripts.js",
+  "main": "index.html",
   "scripts": {
-    "eslint": "eslint *.js",
+    "eslint": "eslint scripts.js vscripts.js",
     "stylelint": "stylelint *.scss scss/*.scss --syntax scss",
     "lint": "npm-run-all --parallel eslint stylelint",
     "babel": "babel scripts.js --watch --out-file script-compiled.js --source-maps",
-    "browser-sync": "browser-sync start --server --files index.html styles.css video.html scripts.js vscripts.js",
+    "browser-sync": "browser-sync start --server --files index.html styles.css video.html script-compiled.js",
     "sass": "node-sass --source-map-embed --watch styles.scss styles.css",
     "dev": "npm-run-all --parallel sass babel browser-sync"
   },

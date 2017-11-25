@@ -1,6 +1,7 @@
 body {
   background-color: #3f3f3f;
-  max-width: 1000px;
+  display: flex;
+  justify-content: center;
 }
 
 .container {
@@ -8,25 +9,21 @@ body {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  align-items: center;
 }
 
-  .container__vidlist {
-    padding: 15px;
-    width: auto;
-
-
-  }
-
-  .container__videoh2 {
-
-  }
-  .container__mainheader {
-
-  }
-
-  .vidimg {
-    width: 250px;
-    height: auto;
-
+.vidimg {
+  width: 250px;
+  height: auto;
+  padding: 2px;
 }
+
+  .border-container {
+    display: flex;
+    justify-content: center;
+    margin: 30px;
+
+    &__bottom {
+      border-bottom: 2px solid #939393;
+      width: 80%;
+    }
+  }

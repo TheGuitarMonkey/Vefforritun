@@ -39,7 +39,7 @@ const videoplayer = (function videoplayer() {
     const el = document.createElement('video');
     el.setAttribute('src', src);
     el.setAttribute('poster', poster);
-    el.setAttribute('class', 'video__vid--overlay');
+    el.setAttribute('class', 'video__vid');
     return el;
   }
 
@@ -62,13 +62,18 @@ const videoplayer = (function videoplayer() {
   }
 
   /**
-   *
+   * ATH breyta!!
+   * Bætir div með class overlay á video__wrapper
    */
   function videoOverlay(bool) {
+    const pp = document.querySelector('.video__wrapper--playpause');
+    const ol = document.querySelector('.video__wrapper--overlay');
     if (bool) {
-      video.className = 'video__vid--overlay';
+      pp.style.display = '';
+      ol.style.display = '';
     } else {
-      video.className = 'video__vid';
+      pp.style.display = 'none';
+      ol.style.display = 'none';
     }
   }
 
@@ -209,14 +214,23 @@ const videoplayer = (function videoplayer() {
     if (vid) {
       const titill = element('h1', 'video__title');
       titill.appendChild(document.createTextNode(vid.title));
+      const vidwrapper = element('div', 'video__wrapper');
       video = videoElement(vid.video, vid.poster);
-      video.addEventListener('click', clickPlaypause);
+      vidwrapper.addEventListener('click', clickPlaypause);
+      vidwrapper.appendChild(video);
+      vidwrapper.appendChild(element('div', 'video__wrapper--playpause'));
+      vidwrapper.appendChild(element('div', 'video__wrapper--overlay'));
       controls = makeControls();
+
+      const link = element('a', 'video__link');
+      link.setAttribute('href', 'index.html');
+      link.appendChild(document.createTextNode('Til baka'));
 
       // Bæta vídjói og controls í video div
       div.appendChild(titill);
-      div.appendChild(video);
+      div.appendChild(vidwrapper);
       div.appendChild(controls);
+      div.appendChild(link);
     } else {
       console.log('else...');
       showError();

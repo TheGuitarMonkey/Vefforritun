@@ -1,7 +1,7 @@
 // breytur fyrir mikið notaðar stærðir
 $max-width: 1200px;
 $gutter: 20px;
-
+ 
 /* setjum box-sizing: border-box; á allt */
 html { /* stylelint-disable-line */
   box-sizing: border-box;
@@ -52,3 +52,4 @@ main { /* stylelint-disable-line */
 @import "scss/header.scss";
 @import "scss/grid.scss";
 @import "scss/listi.scss";
+@import "scss/videoplayer.scss";

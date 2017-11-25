@@ -106,9 +106,9 @@ var program = (function(){
   }
 
 
-  function element(name, child) {
+  function element(name, className, child) {
     const el = document.createElement(name);
-
+    el.className = className;
     if (typeof child === 'string') {
       el.appendChild(document.createTextNode(child));
     } else if (typeof child === 'object') {
@@ -117,15 +117,20 @@ var program = (function(){
     return el;
   }
 
+  function showError(error){
+    let errorMessage = element('p', error);
+    container.appendChild(errorMessage);
+  }
+
   function loadJSON() {
     const r = new XMLHttpRequest();
     r.open('GET', 'videos.json', true);
     r.onload = function() {
       var data = JSON.parse(r.response);
       if (r.status >=200 && r.status < 400) {
-          addVideoList(data);
+        addVideoList(data);
       } else {
-        //villuskilaboð
+        showError('Engin myndbönd fundust');
       }
     };
 
@@ -133,19 +138,16 @@ var program = (function(){
    }
 
    function addPoster(video){
-     let videoPoster = element('img');
+     let videoPoster = element('img', 'vidimg');
      videoPoster.src = video.poster;
-     videoPoster.className = 'vidimg';
      return videoPoster;
    }
    function addTitle(video){
-     let videoTitle = element('p', video.title);
-     videoTitle.className = 'vidtitle';
+     let videoTitle = element('p', 'vidtitle', video.title);
      return videoTitle;
    }
    function addCreated(video){
-     let videoCreated = element('p', timeSinceCreated(video.created));
-     videoCreated.className = 'vidcreated';
+     let videoCreated = element('p', 'vidcreated', timeSinceCreated(video.created));
      return videoCreated;
    }
 
@@ -160,13 +162,10 @@ var program = (function(){
       er búið til div utan um hverja mynd og texta tilheyrandi
       þeirri mynd*/
     for(let i = 0; i < videoData.categories.length; i++){
-      let divTitle = element('h2', videoData.categories[i].title);
-      divTitle.className = 'categorytitle';
-      let div = element('div', divTitle);
-      div.className = 'category';
+      let divTitle = element('h2', 'categorytitle', videoData.categories[i].title);
+      let div = element('div', 'category', divTitle);
       for(let j = 0; j < videoData.categories[i].videos.length; j++){
-        let innerDiv = element('div');
-        innerDiv.className = 'imagediv';
+        let innerDiv = element('div', 'imagediv');
         let videoID = videoData.categories[i].videos[j];
         let video = videoData.videos[videoID-1];
         let videoPoster = addPoster(video);
@@ -174,11 +173,9 @@ var program = (function(){
         let videoCreated = addCreated(video);
         let linkToVideo = element('a');
         linkToVideo.href = "video.html?id=" + video.id;
-        let imageContainer = element('div');
-        imageContainer.className = 'imagecontainer';
-        let thumbnail = element('div', '' +
+        let imageContainer = element('div', 'imagecontainer');
+        let thumbnail = element('div', 'thumbnail', '' +
         secondToMinutesAndSeconds(video.duration));
-        thumbnail.className = 'thumbnail';
         linkToVideo.appendChild(videoPoster);
         imageContainer.appendChild(linkToVideo);
         imageContainer.appendChild(thumbnail);
@@ -190,10 +187,8 @@ var program = (function(){
       container.appendChild(div);
 
       //Setur border á milli categories
-      let borderContainerDiv = element('div');
-      borderContainerDiv.className = 'bordercontainerdiv';
-      let borderDiv = element('div');
-      borderDiv.className = 'borderdiv';
+      let borderContainerDiv = element('div', 'bordercontainerdiv');
+      let borderDiv = element('div', 'borderdiv');
       borderContainerDiv.appendChild(borderDiv);
       container.appendChild(borderContainerDiv);
     }

@@ -197,12 +197,21 @@ const videoplayer = (function videoplayer() {
 
   function showLoading() {
     empty(div);
-    div.appendChild(document.createTextNode('Hahaha loading motherfucker!'));
+    const p = element('p', 'video__loading');
+
+    p.appendChild(document.createTextNode('Loading...'));
+    div.appendChild(p);
   }
 
   function showError() {
     empty(div);
-    div.appendChild(document.createTextNode('Æjæjæj... vídjóið fannst ekki... mikið er það leitt.'));
+    const p = element('p', 'video__error');
+    p.appendChild(document.createTextNode('Vídjóið fannst ekki... mikið er það leitt.'));
+    div.appendChild(p);
+    const link = element('a', 'video__link');
+    link.setAttribute('href', 'index.html');
+    link.appendChild(document.createTextNode('Til baka'));
+    div.appendChild(link);
   }
 
   function showData() {
@@ -232,7 +241,6 @@ const videoplayer = (function videoplayer() {
       div.appendChild(controls);
       div.appendChild(link);
     } else {
-      console.log('else...');
       showError();
     }
   }
@@ -252,7 +260,6 @@ const videoplayer = (function videoplayer() {
         showData();
       } else {
         // Hér er showError í sýnilausn
-        console.log('villa!', r);
         showError();
       }
     };
@@ -260,7 +267,7 @@ const videoplayer = (function videoplayer() {
     // Fall sem keyrir ef villa kemur upp
     r.onerror = function onerror() {
       // Hér er showError í sýnilausn
-      console.log('villa í tengingu');
+      showError();
     };
     r.send();
   }

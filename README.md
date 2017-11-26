@@ -16,7 +16,7 @@ Verkefnið er geymt á GitHub og notast skal við `git` til að sækja verkefni�
 
 Í `/gogn` möppu eru `package.json`, `.stylelintrc`, `.eslintrc.js`, `.babelrc` og svo allur html og javascript kóði fyrir síður verkefnisins. Útlit síðunnar er í `styles.css` skjali. Ath. að ekki skal eiga við `styles.css` beint, heldur eru allar stílbreytingar gerðar í `.scss` skrám (sjá neðar).
 
-Í `/img` möppu eru poster myndir fyrir vídjóin, og í `/videos` möppu eru öll vídjó síðunnar. Upplýsingar um myndbönd eru að finna í `videos.json` skrá.
+Í `/img` möppu eru myndir fyrir takka á spilara, og í `/videos` möppu eru öll vídjó síðunnar. Upplýsingar um myndbönd eru að finna í `videos.json` skrá.
 
 Við notumst við SASS tæknina í þessu verkefni. Í `/scss` möppu er að finna allar `.scss` skrár sem við notum. Þegar `npm run dev` er keyrt í skipanalínu þá er hægt að gera breytingar í `.scss` skrám og þær breytingar færast sjálfkrafa í `styles.css` og birtast þar með á síðunni. Aldrei þarf að eiga beint við skjalið `styles.css`.
 

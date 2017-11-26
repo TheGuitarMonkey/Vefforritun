@@ -1,9 +1,4 @@
-
-document.addEventListener('DOMContentLoaded', function () {
-  program.init();
-});
-
-const program = (function () {
+const program = (function startProgram() {
   let container;
 
   /* Tekur inn millisekúndur og breytir þeim í
@@ -20,58 +15,32 @@ const program = (function () {
     let time;
     if (milliseconds < min) {
       time = Math.floor(milliseconds / sec);
-      if (time !== 1) {
-        return 'Fyrir ' + time + ' sekúndum síðan';
-      }
-      return 'Fyrir ' + time + ' sekúndu síðan';
-    }
-    else if (milliseconds < hour) {
+      if (time !== 1) return `Fyrir ${time} sekúndum síðan`;
+      return `Fyrir ${time} sekúndu síðan`;
+    } else if (milliseconds < hour) {
       time = Math.floor(milliseconds / min);
-      if (time !== 1) {
-        return 'Fyrir ' + time + ' mínútum síðan';
-      }
-      return 'Fyrir ' + time + ' mínútu síðan';
-    }
-
-    else if (milliseconds < day) {
+      if (time !== 1) return `Fyrir ${time} mínútum síðan`;
+      return `Fyrir ${time} mínútu síðan`;
+    } else if (milliseconds < day) {
       time = Math.floor(milliseconds / hour);
-      if (time !== 1) {
-        return 'Fyrir ' + time + ' klukkustundum síðan';
-      }
-      return 'Fyrir ' + time + ' klukkustund síðan';
-    }
-
-    else if (milliseconds < week) {
+      if (time !== 1) return `Fyrir ${time} klukkustundum síðan`;
+      return `Fyrir ${time} klukkustund síðan`;
+    } else if (milliseconds < week) {
       time = Math.floor(milliseconds / day);
-      if (time !== 1) {
-        return 'Fyrir ' + time + ' dögum síðan';
-      }
-      return 'Fyrir ' + time + ' degi síðan';
-    }
-
-    else if (milliseconds < month) {
+      if (time !== 1) return `Fyrir ${time} dögum síðan`;
+      return `Fyrir ${time} degi síðan`;
+    } else if (milliseconds < month) {
       time = Math.floor(milliseconds / week);
-      if (time !== 1) {
-        return 'Fyrir ' + time + ' vikum síðan';
-      }
-      return 'Fyrir ' + time + ' viku síðan';
-    }
-
-    else if (milliseconds < year) {
+      if (time !== 1) return `Fyrir ${time} vikum síðan`;
+      return `Fyrir ${time} viku síðan`;
+    } else if (milliseconds < year) {
       time = Math.floor(milliseconds / month);
-      if (time !== 1) {
-        return 'Fyrir ' + time + ' mánuðum síðan';
-      }
-      return 'Fyrir ' + time + ' mánuði síðan';
+      if (time !== 1) return `Fyrir ${time} mánuðum síðan`;
+      return `Fyrir ${time} mánuði síðan`;
     }
-
-    else{
-      time = Math.floor(milliseconds / year);
-      if (time !== 1) {
-        return 'Fyrir ' + time + ' árum síðan';
-      }
-      return 'Fyrir ' + time + ' ári síðan';
-    }
+    time = Math.floor(milliseconds / year);
+    if (time !== 1) return `Fyrir ${time} árum síðan`;
+    return `Fyrir ${time} ári síðan`;
   }
 
   /* Tekur inn millisekúndurnur sem höfðu liðið frá
@@ -90,9 +59,9 @@ const program = (function () {
     const minutes = Math.floor(totalSeconds / min);
     let seconds = totalSeconds % min;
     if (seconds < 10) {
-      seconds = '0' + seconds;
+      seconds = `0${seconds}`;
     }
-    return minutes + ':' + seconds;
+    return `${minutes}:${seconds}`;
   }
 
 
@@ -147,7 +116,7 @@ const program = (function () {
         const videoTitle = addTitle(video);
         const videoCreated = addCreated(video);
         const linkToVideo = element('a');
-        linkToVideo.href = 'video.html?id=' + video.id;
+        linkToVideo.href = `video.html?id=${video.id}`;
         const imageContainer = element('div', 'imagecontainer');
         const thumbnail = element('div', 'thumbnail', secondToMinutesAndSeconds(video.duration));
         linkToVideo.appendChild(videoPoster);
@@ -171,7 +140,7 @@ const program = (function () {
   function loadJSON() {
     const r = new XMLHttpRequest();
     r.open('GET', 'videos.json', true);
-    r.onload = function () {
+    r.onload = function load() {
       const data = JSON.parse(r.response);
       if (r.status >= 200 && r.status < 400) {
         addVideoList(data);
@@ -190,4 +159,8 @@ const program = (function () {
   return {
     init,
   };
-})();
+}());
+
+document.addEventListener('DOMContentLoaded', function start() {
+  program.init();
+});

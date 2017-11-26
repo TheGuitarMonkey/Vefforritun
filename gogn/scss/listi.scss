@@ -1,7 +1,6 @@
 .bodyclass {
   display: flex;
   justify-content: center;
-  background-color: #3f3f3f;
 }
 
 .container {
@@ -64,7 +63,8 @@
   .imagediv {
     display: inline-block;
     width: 33.33333%;
-    padding-right: 1em;
+    padding-right: 0.5em;
+    padding-left: 0.5em;
   }
 }
 
@@ -85,7 +85,8 @@
   .imagediv {
     display: inline-block;
     width: 50%;
-    padding-right: 1em;
+    padding-right: 0.5em;
+    padding-left: 0.5em;
   }
 }
 

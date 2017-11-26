@@ -161,6 +161,6 @@ const program = (function startProgram() {
   };
 }());
 
-document.addEventListener('DOMContentLoaded', function start() {
+document.addEventListener('DOMContentLoaded', () => {
   program.init();
 });

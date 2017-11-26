@@ -163,7 +163,7 @@ var program = function startProgram() {
   };
 }();
 
-document.addEventListener('DOMContentLoaded', function start() {
+document.addEventListener('DOMContentLoaded', function () {
   program.init();
 });
 //# sourceMappingURL=scripts.js.map

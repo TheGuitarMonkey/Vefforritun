@@ -2,11 +2,7 @@
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-document.addEventListener('DOMContentLoaded', function () {
-  program.init();
-});
-
-var program = function () {
+var program = function startProgram() {
   var container = void 0;
 
   /* Tekur inn millisekúndur og breytir þeim í
@@ -23,47 +19,32 @@ var program = function () {
     var time = void 0;
     if (milliseconds < min) {
       time = Math.floor(milliseconds / sec);
-      if (time !== 1) {
-        return 'Fyrir ' + time + ' sekúndum síðan';
-      }
-      return 'Fyrir ' + time + ' sekúndu síðan';
+      if (time !== 1) return 'Fyrir ' + time + ' sek\xFAndum s\xED\xF0an';
+      return 'Fyrir ' + time + ' sek\xFAndu s\xED\xF0an';
     } else if (milliseconds < hour) {
       time = Math.floor(milliseconds / min);
-      if (time !== 1) {
-        return 'Fyrir ' + time + ' mínútum síðan';
-      }
-      return 'Fyrir ' + time + ' mínútu síðan';
+      if (time !== 1) return 'Fyrir ' + time + ' m\xEDn\xFAtum s\xED\xF0an';
+      return 'Fyrir ' + time + ' m\xEDn\xFAtu s\xED\xF0an';
     } else if (milliseconds < day) {
       time = Math.floor(milliseconds / hour);
-      if (time !== 1) {
-        return 'Fyrir ' + time + ' klukkustundum síðan';
-      }
-      return 'Fyrir ' + time + ' klukkustund síðan';
+      if (time !== 1) return 'Fyrir ' + time + ' klukkustundum s\xED\xF0an';
+      return 'Fyrir ' + time + ' klukkustund s\xED\xF0an';
     } else if (milliseconds < week) {
       time = Math.floor(milliseconds / day);
-      if (time !== 1) {
-        return 'Fyrir ' + time + ' dögum síðan';
-      }
-      return 'Fyrir ' + time + ' degi síðan';
+      if (time !== 1) return 'Fyrir ' + time + ' d\xF6gum s\xED\xF0an';
+      return 'Fyrir ' + time + ' degi s\xED\xF0an';
     } else if (milliseconds < month) {
       time = Math.floor(milliseconds / week);
-      if (time !== 1) {
-        return 'Fyrir ' + time + ' vikum síðan';
-      }
-      return 'Fyrir ' + time + ' viku síðan';
+      if (time !== 1) return 'Fyrir ' + time + ' vikum s\xED\xF0an';
+      return 'Fyrir ' + time + ' viku s\xED\xF0an';
     } else if (milliseconds < year) {
       time = Math.floor(milliseconds / month);
-      if (time !== 1) {
-        return 'Fyrir ' + time + ' mánuðum síðan';
-      }
-      return 'Fyrir ' + time + ' mánuði síðan';
-    } else {
-      time = Math.floor(milliseconds / year);
-      if (time !== 1) {
-        return 'Fyrir ' + time + ' árum síðan';
-      }
-      return 'Fyrir ' + time + ' ári síðan';
+      if (time !== 1) return 'Fyrir ' + time + ' m\xE1nu\xF0um s\xED\xF0an';
+      return 'Fyrir ' + time + ' m\xE1nu\xF0i s\xED\xF0an';
     }
+    time = Math.floor(milliseconds / year);
+    if (time !== 1) return 'Fyrir ' + time + ' \xE1rum s\xED\xF0an';
+    return 'Fyrir ' + time + ' \xE1ri s\xED\xF0an';
   }
 
   /* Tekur inn millisekúndurnur sem höfðu liðið frá
@@ -161,7 +142,7 @@ var program = function () {
   function loadJSON() {
     var r = new XMLHttpRequest();
     r.open('GET', 'videos.json', true);
-    r.onload = function () {
+    r.onload = function load() {
       var data = JSON.parse(r.response);
       if (r.status >= 200 && r.status < 400) {
         addVideoList(data);
@@ -181,4 +162,8 @@ var program = function () {
     init: init
   };
 }();
+
+document.addEventListener('DOMContentLoaded', function start() {
+  program.init();
+});
 //# sourceMappingURL=scripts.js.map

@@ -1,10 +1,10 @@
 .video {
   display: flex;
   width: 100%;
+  text-align: center;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
 
   &__wrapper {
     position: relative;

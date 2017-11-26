@@ -1,14 +1,14 @@
 'use strict';
 
 /**
- * Fyrsta tilraun til vídjóspilara
+ * Vídjóspilari
  */
 var videoplayer = function videoplayer() {
   var div = void 0; // Aðal divvið
   var video = void 0; // video elementið
   var controls = void 0; // controls divvið
 
-  // Breytur fyrir takkana sem breytast, (play, pause, mute, unmute)
+  // Breytur fyrir myndir sem breytast, (play, pause, mute, unmute)
   var playImg = void 0;
   var pauseImg = void 0;
   var muteImg = void 0;
@@ -64,7 +64,6 @@ var videoplayer = function videoplayer() {
   }
 
   /**
-   * ATH breyta!!
    * Bætir div með class overlay á video__wrapper
    */
   function videoOverlay(bool) {
@@ -101,7 +100,6 @@ var videoplayer = function videoplayer() {
   }
 
   // Föll þegar ýtt er á takka.
-  //
   function clickPlaypause() {
     if (video.paused) {
       video.play();
@@ -150,7 +148,7 @@ var videoplayer = function videoplayer() {
   // ---------- Hér lýkur takkaföllum ------------
 
   /**
-   * Returns a div filled with video controls
+   * Skilar div með video controls
    */
   function makeControls() {
     var el = element('div', 'video__controls');
@@ -196,6 +194,9 @@ var videoplayer = function videoplayer() {
     return el;
   }
 
+  /**
+   * Skilaboð þegar verið er að sækja gögn
+   */
   function showLoading() {
     empty(div);
     var p = element('p', 'video__loading');
@@ -204,6 +205,9 @@ var videoplayer = function videoplayer() {
     div.appendChild(p);
   }
 
+  /**
+   * Skilaboð þegar eitthvað fer úrskeiðis
+   */
   function showError() {
     empty(div);
     var p = element('p', 'video__error');
@@ -215,6 +219,9 @@ var videoplayer = function videoplayer() {
     div.appendChild(link);
   }
 
+  /**
+   * Sýnir gögn sem finnast
+   */
   function showData() {
     empty(div);
 
@@ -247,8 +254,7 @@ var videoplayer = function videoplayer() {
   }
 
   /**
-   * load video
-   * Finnur út hvaða vídjó skal ná í
+   * Finnur út hvaða vídjó skal ná í og nær í það með XMLHttpRequest();
    */
   function load() {
     var r = new XMLHttpRequest();
@@ -260,14 +266,12 @@ var videoplayer = function videoplayer() {
       if (r.status >= 200 && r.status < 400) {
         showData();
       } else {
-        // Hér er showError í sýnilausn
         showError();
       }
     };
 
     // Fall sem keyrir ef villa kemur upp
     r.onerror = function onerror() {
-      // Hér er showError í sýnilausn
       showError();
     };
     r.send();
@@ -292,9 +296,7 @@ var videoplayer = function videoplayer() {
   };
 }();
 
-// Fyrir video.html
 document.addEventListener('DOMContentLoaded', function () {
-  // Fyrsta tilraun, með fullt af var and stuff
   var videoDiv = document.querySelector('.video');
   videoplayer.init(videoDiv);
 });

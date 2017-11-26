@@ -1,12 +1,12 @@
 /**
- * Fyrsta tilraun til vídjóspilara
+ * Vídjóspilari
  */
 const videoplayer = (function videoplayer() {
   let div; // Aðal divvið
   let video; // video elementið
   let controls; // controls divvið
 
-  // Breytur fyrir takkana sem breytast, (play, pause, mute, unmute)
+  // Breytur fyrir myndir sem breytast, (play, pause, mute, unmute)
   let playImg;
   let pauseImg;
   let muteImg;
@@ -62,7 +62,6 @@ const videoplayer = (function videoplayer() {
   }
 
   /**
-   * ATH breyta!!
    * Bætir div með class overlay á video__wrapper
    */
   function videoOverlay(bool) {
@@ -100,7 +99,6 @@ const videoplayer = (function videoplayer() {
   }
 
   // Föll þegar ýtt er á takka.
-  //
   function clickPlaypause() {
     if (video.paused) {
       video.play();
@@ -149,7 +147,7 @@ const videoplayer = (function videoplayer() {
   // ---------- Hér lýkur takkaföllum ------------
 
   /**
-   * Returns a div filled with video controls
+   * Skilar div með video controls
    */
   function makeControls() {
     const el = element('div', 'video__controls');
@@ -195,6 +193,9 @@ const videoplayer = (function videoplayer() {
     return el;
   }
 
+  /**
+   * Skilaboð þegar verið er að sækja gögn
+   */
   function showLoading() {
     empty(div);
     const p = element('p', 'video__loading');
@@ -203,6 +204,9 @@ const videoplayer = (function videoplayer() {
     div.appendChild(p);
   }
 
+  /**
+   * Skilaboð þegar eitthvað fer úrskeiðis
+   */
   function showError() {
     empty(div);
     const p = element('p', 'video__error');
@@ -214,6 +218,9 @@ const videoplayer = (function videoplayer() {
     div.appendChild(link);
   }
 
+  /**
+   * Sýnir gögn sem finnast
+   */
   function showData() {
     empty(div);
 
@@ -246,8 +253,7 @@ const videoplayer = (function videoplayer() {
   }
 
   /**
-   * load video
-   * Finnur út hvaða vídjó skal ná í
+   * Finnur út hvaða vídjó skal ná í og nær í það með XMLHttpRequest();
    */
   function load() {
     const r = new XMLHttpRequest();
@@ -259,14 +265,12 @@ const videoplayer = (function videoplayer() {
       if (r.status >= 200 && r.status < 400) {
         showData();
       } else {
-        // Hér er showError í sýnilausn
         showError();
       }
     };
 
     // Fall sem keyrir ef villa kemur upp
     r.onerror = function onerror() {
-      // Hér er showError í sýnilausn
       showError();
     };
     r.send();
@@ -291,9 +295,7 @@ const videoplayer = (function videoplayer() {
   };
 }());
 
-// Fyrir video.html
 document.addEventListener('DOMContentLoaded', () => {
-  // Fyrsta tilraun, með fullt af var and stuff
   const videoDiv = document.querySelector('.video');
   videoplayer.init(videoDiv);
 });

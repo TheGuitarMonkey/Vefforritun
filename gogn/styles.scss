@@ -1,7 +1,7 @@
 // breytur fyrir mikið notaðar stærðir
 $max-width: 1200px;
 $gutter: 20px;
- 
+
 /* setjum box-sizing: border-box; á allt */
 html { /* stylelint-disable-line */
   box-sizing: border-box;
@@ -31,7 +31,8 @@ html { /* stylelint-disable-line */
     margin: 0;
   }
 }
-body {
+
+body { /* stylelint-disable-line */
   background-color: #3f3f3f;
 }
 

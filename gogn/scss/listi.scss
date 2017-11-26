@@ -5,17 +5,13 @@ body {
 }
 
 .container {
-  max-width: 1200px;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
+  max-width: 1000px;
 }
 
 
 .imagediv {
   width: 31%;
   display: inline-block;
-  padding-right: 1em;
 }
 
 .vidimg {
@@ -34,7 +30,6 @@ body {
     position: absolute;
     bottom: 1em;
     right: 0.5em;
-
     color: #fff;
     background-color: rgba(0, 0, 0, 0.5);
 }
@@ -60,5 +55,30 @@ body {
   .borderdiv {
     border-bottom: 0.16em solid #eee;
     width: 80%;
+  }
+}
+
+@media (min-width: 600px) {
+  .imagediv {
+    padding-right: 1em;
+    width: 330px;
+  }
+}
+
+@media (max-width: 599px) {
+
+  .imagediv {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-bottom: 1em;
+    }
+
+  .category {
+    padding: 0em 1em;
+  }
+
+  .container__mainheader {
+    padding: 0em 0.7em;
   }
 }

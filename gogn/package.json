@@ -7,7 +7,7 @@
     "eslint": "eslint scripts.js vscripts.js",
     "stylelint": "stylelint *.scss scss/*.scss --syntax scss",
     "lint": "npm-run-all --parallel eslint stylelint",
-    "babel": "babel scripts.js --watch --out-file script-compiled.js --source-maps",
+    "babel": "babel *.js --watch --out-dir ./compiled_js/ --source-maps",
     "browser-sync": "browser-sync start --server --files index.html styles.css video.html script-compiled.js",
     "sass": "node-sass --source-map-embed --watch styles.scss styles.css",
     "dev": "npm-run-all --parallel sass babel browser-sync"
